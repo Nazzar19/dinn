@@ -175,6 +175,7 @@ body{
   letter-spacing:.02em;
   color:var(--maroon);
   display:flex; align-items:center; gap:.4em;
+  white-space:nowrap;
 }
 
 .envelope{
