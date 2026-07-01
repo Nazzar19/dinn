@@ -415,7 +415,12 @@ aimStage.addEventListener('pointerdown', (e) => {
 
   if (flying) return;
   const m = metrics();
-  angle = clampAngle(Math.atan2(e.clientY - m.top - m.ny, e.clientX - m.nx));
+  angle = clampAngle(
+  Math.atan2(
+    e.clientY - m.top - m.ny,
+    e.clientX - m.left - m.nx
+  )
+);
   aiming = true;
   startDraw();
 });
