@@ -183,7 +183,7 @@ function openLetter(){
   aimStage.classList.add('is-gone');
   win.classList.add('is-open');
   win.setAttribute('aria-hidden', 'false');
-  startBackgroundMusic(); // Hapus baris ini
+  ...
 }
 
 function closeLetter(){
