@@ -36,8 +36,6 @@ function startBackgroundMusic(){
   bgMusic.play().catch(() => {});
 }
 
-window.addEventListener('load', startBackgroundMusic);
-
 /* ============================================================
    PIXEL CAT SPRITES
    One char = one pixel. '.' = transparent.
@@ -185,6 +183,7 @@ function openLetter(){
   aimStage.classList.add('is-gone');
   win.classList.add('is-open');
   win.setAttribute('aria-hidden', 'false');
+  startBackgroundMusic();
   // focus the question for screen-reader / keyboard users
   setTimeout(() => yesBtn.focus({ preventScroll: true }), reduceMotion ? 0 : 420);
 }
