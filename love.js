@@ -183,9 +183,7 @@ function openLetter(){
   aimStage.classList.add('is-gone');
   win.classList.add('is-open');
   win.setAttribute('aria-hidden', 'false');
-  startBackgroundMusic();
-  // focus the question for screen-reader / keyboard users
-  setTimeout(() => yesBtn.focus({ preventScroll: true }), reduceMotion ? 0 : 420);
+  ...
 }
 
 function closeLetter(){
@@ -413,9 +411,11 @@ function resetAim(){
 // ---- input: pointer — press to nock & draw, hold to build power, release to loose ----
 aimStage.addEventListener('pointermove', (e) => { if (!flying) updateAim(e.clientX, e.clientY); });
 aimStage.addEventListener('pointerdown', (e) => {
+  startBackgroundMusic(); // <-- tambahkan ini
+
   if (flying) return;
   const m = metrics();
-  angle = clampAngle(Math.atan2(e.clientY - m.top - m.ny, e.clientX - m.left - m.nx));
+  angle = clampAngle(Math.atan2(e.clientY - m.top - m.ny, e.clientX - m.nx));
   aiming = true;
   startDraw();
 });
