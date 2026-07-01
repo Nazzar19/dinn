@@ -29,38 +29,13 @@ const bgMusic       = $('bgMusic');
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 let musicStarted = false;
 
-async function startBackgroundMusic() {
+function startBackgroundMusic(){
   if (musicStarted || !bgMusic) return;
-
   musicStarted = true;
   bgMusic.volume = 0.35;
-
-  try {
-    await bgMusic.play();
-    console.log("Music jalan");
-  } catch (e) {
-    console.error(e);
-  }
+  bgMusic.play().catch(() => {});
 }
 
-async function unlockAudio() {
-  if (!bgMusic) return;
-
-  try {
-    // Mainkan sebentar dalam keadaan mute
-    bgMusic.muted = true;
-    await bgMusic.play();
-
-    // Langsung pause lagi
-    bgMusic.pause();
-    bgMusic.currentTime = 0;
-    bgMusic.muted = false;
-
-    console.log("Audio unlocked");
-  } catch (e) {
-    console.log(e);
-  }
-}
 /* ============================================================
    PIXEL CAT SPRITES
    One char = one pixel. '.' = transparent.
@@ -208,7 +183,9 @@ function openLetter(){
   aimStage.classList.add('is-gone');
   win.classList.add('is-open');
   win.setAttribute('aria-hidden', 'false');
-  ...
+  startBackgroundMusic();
+  // focus the question for screen-reader / keyboard users
+  setTimeout(() => yesBtn.focus({ preventScroll: true }), reduceMotion ? 0 : 420);
 }
 
 function closeLetter(){
@@ -434,22 +411,20 @@ function resetAim(){
 }
 
 // ---- input: pointer — press to nock & draw, hold to build power, release to loose ----
-aimStage.addEventListener('pointermove', (e) => { if (!flying) updateAim(e.clientX, e.clientY); });
-aimStage.addEventListener('pointerdown', (e) => {
-  startBackgroundMusic(); // <-- tambahkan ini
+// ---- input: pointer — press to nock & draw, hold to build power, release to loose ----
+aimStage.addEventListener('pointermove', (e) => {
+  if (!flying) updateAim(e.clientX, e.clientY);
+});
 
+aimStage.addEventListener('pointerdown', (e) => {
   if (flying) return;
   const m = metrics();
-  angle = clampAngle(
-  Math.atan2(
-    e.clientY - m.top - m.ny,
-    e.clientX - m.left - m.nx
-  )
-);
+  angle = clampAngle(Math.atan2(e.clientY - m.top - m.ny, e.clientX - m.left - m.nx));
   aiming = true;
   startDraw();
 });
 
+window.addEventListener('pointerup', release);
 window.addEventListener('pointerup', release);
 
 // ---- input: keyboard (auto-aim at the target, draws then looses, always lands) ----
