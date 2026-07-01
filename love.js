@@ -24,8 +24,19 @@ const finalText     = $('final');
 const closeBtn      = $('closeBtn');
 const confettiBox   = $('confetti');
 const rainBox       = $('rain');
+const bgMusic       = $('bgMusic');
 
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+let musicStarted = false;
+
+function startBackgroundMusic(){
+  if (musicStarted || !bgMusic) return;
+  musicStarted = true;
+  bgMusic.volume = 0.35;
+  bgMusic.play().catch(() => {});
+}
+
+window.addEventListener('load', startBackgroundMusic);
 
 /* ============================================================
    PIXEL CAT SPRITES
