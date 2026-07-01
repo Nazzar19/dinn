@@ -29,11 +29,18 @@ const bgMusic       = $('bgMusic');
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 let musicStarted = false;
 
-function startBackgroundMusic(){
+async function startBackgroundMusic() {
   if (musicStarted || !bgMusic) return;
+
   musicStarted = true;
   bgMusic.volume = 0.35;
-  bgMusic.play().catch(() => {});
+
+  try {
+    await bgMusic.play();
+    console.log("Music jalan");
+  } catch (e) {
+    console.error(e);
+  }
 }
 
 /* ============================================================
