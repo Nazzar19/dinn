@@ -415,15 +415,11 @@ aimStage.addEventListener('pointerdown', (e) => {
 
   if (flying) return;
   const m = metrics();
-  angle = clampAngle(
-  Math.atan2(
-    e.clientY - m.top - m.ny,
-    e.clientX - m.left - m.nx
-  )
-);
+  angle = clampAngle(Math.atan2(e.clientY - m.top - m.ny, e.clientX - m.nx));
   aiming = true;
   startDraw();
 });
+
 window.addEventListener('pointerup', release);
 
 // ---- input: keyboard (auto-aim at the target, draws then looses, always lands) ----
