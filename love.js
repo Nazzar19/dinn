@@ -1,3 +1,18 @@
+window.onerror = function (msg, url, line, col, err) {
+  alert(
+    "ERROR:\n" +
+    msg +
+    "\nLine: " + line +
+    "\nCol: " + col
+  );
+};
+
+/* ============================================================
+   LOVE LETTER — interactions
+   Vanilla JS, no dependencies.
+   ============================================================ */
+
+const $ = (id) => document.getElementById(id);
 /* ============================================================
    LOVE LETTER — interactions
    Vanilla JS, no dependencies.
