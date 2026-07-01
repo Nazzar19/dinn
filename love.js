@@ -207,16 +207,9 @@ function onParallax(e){
 function openLetter(){
   aimStage.classList.add('is-gone');
   win.classList.add('is-open');
-  win.setAttribute('aria-hidden','false');
-
-  bgMusic.currentTime = 0;
-  bgMusic.volume = 0.35;
-  bgMusic.play();
-
-  setTimeout(() => {
-    yesBtn.focus({preventScroll:true});
-  }, reduceMotion ? 0 : 420);
-   }
+  win.setAttribute('aria-hidden', 'false');
+  ...
+}
 
 function closeLetter(){
   win.classList.remove('is-open');
@@ -442,20 +435,12 @@ function resetAim(){
 
 // ---- input: pointer — press to nock & draw, hold to build power, release to loose ----
 aimStage.addEventListener('pointermove', (e) => { if (!flying) updateAim(e.clientX, e.clientY); });
-aimStage.addEventListener('pointerdown', async (e) => {
-
-  await unlockAudio();
+aimStage.addEventListener('pointerdown', (e) => {
+  startBackgroundMusic(); // <-- tambahkan ini
 
   if (flying) return;
-
   const m = metrics();
-  angle = clampAngle(
-    Math.atan2(
-      e.clientY - m.top - m.ny,
-      e.clientX - m.left - m.nx
-    )
-  );
-
+  angle = clampAngle(Math.atan2(e.clientY - m.top - m.ny, e.clientX - m.nx));
   aiming = true;
   startDraw();
 });
