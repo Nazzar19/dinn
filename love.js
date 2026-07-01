@@ -485,7 +485,7 @@ noBtn.addEventListener('focus', dodge);          // keyboard tab
    ============================================================ */
 function sayYes(){
   catState = 'happy';
-  title.textContent = 'Yayyy! I love you ♡';
+  title.textContent = 'yayyy! makasi yaa ♡';
   drawSprite(catCanvas, CAT_HAPPY);
   catCanvas.setAttribute('aria-label', 'A happy cat with a bow');
 
